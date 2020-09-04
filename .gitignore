@@ -1,0 +1,6 @@
+/.pypirc
+/YouDown.egg-info/
+/build/
+/dist/
+/venv/
+

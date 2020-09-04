@@ -29,6 +29,7 @@ def main():
     ])
     var = result.run()
     if var == 0:
+        # URL sample
         # https://www.youtube.com/watch?v=3L5ZIzD84rM
         url = input_dialog(
             title='YouDown',
@@ -49,12 +50,13 @@ def main():
         extension = result.mime_type.split('/')[1]
         file_name = '{title}.{extension}'.format(title=result.title, extension=extension)
         download(file_name, result.url)
-
-        result = button_dialog('YouDown', text='Convert to ogg? (using ffmpeg)', )
-        stream = ffmpeg.input(file_name)
-        nfile_name = file_name[0:file_name.rindex('.')] + '.ogg'
-        stream = ffmpeg.output(stream, nfile_name)
-        ffmpeg.run(stream)
+        buttons = [('Yes', True), ('False', False)]
+        result = button_dialog('YouDown', text='Convert to ogg? (using ffmpeg)', buttons=buttons)
+        if result:
+            stream = ffmpeg.input(file_name)
+            nfile_name = file_name[0:file_name.rindex('.')] + '.ogg'
+            stream = ffmpeg.output(stream, nfile_name)
+            ffmpeg.run(stream)
 
 
 if __name__ == '__main__':
